@@ -1,0 +1,56 @@
+<div ng-app="app">
+    <div ng-controller="Controller1 as ctrl1">
+        <div>{{ ctrl1.state }}</div>
+        <div>{{ ctrl1.promiseText }}</div>
+    </div>
+    <div ng-controller="Controller2 as ctrl2">
+        <div>{{ ctrl2.state }}</div>
+        <div>{{ ctrl2.promiseText }}</div>
+    </div>
+</div>
+<script>
+        var app = angular.module('app', []);
+        app.controller('Controller1', ['MyService',ctrl1]);
+        app.controller('Controller2', ['MyService', '$timeout',ctrl2]);
+        app.factory('MyService', ['$q', '$timeout', myService]);
+    
+        function ctrl1(svc) {
+            var vm = this;            
+            vm.state = 'idle';
+            vm.state = 'calling';
+            svc.getPromise().then(function(data) {
+                vm.state = 'done';
+                vm.promiseText = data + ' from ctrl1';
+            });
+        }
+
+        function ctrl2(svc, $timeout) {
+            var vm = this;
+            vm.state = 'idle';
+            $timeout(function() {
+                svc.getPromise().then(function(data) {
+                    vm.state = 'done';
+                    vm.promiseText = data + ' from ctrl2';
+                });
+            }, 6000);
+            
+        }
+
+        function myService($q, $timeout) {
+            var _promise;
+    
+            function getPromise() {
+                if (!_promise) {
+                    _promise = $q.defer();
+                    $timeout(function() {
+                        _promise.resolve('hello');
+                    },3000);
+                }
+                return _promise.promise;
+            }
+    
+            return {
+                getPromise : getPromise
+            };
+        }
+</script>
