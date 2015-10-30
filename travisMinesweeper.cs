@@ -1,5 +1,35 @@
 using System;
-					
+	using System.Globalization;
+
+	static class ToStringExt
+	{
+		static string[] _cache =
+		{
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8"};
+		
+		const byte _top = 8;
+
+		public static string ToStringLookup(this byte value)
+		{
+
+			if (value >= 0 &&
+				value <= _top)
+			{
+				return _cache[value];
+			}
+
+			return value.ToString(CultureInfo.InvariantCulture);
+		}
+	}
+		
 public class Program
 {
 public void Main()
@@ -8,23 +38,30 @@ public void Main()
 	var MAX_ARR_X = MAX_X - 1;
 	var MAX_Y = 100; 
 	var LENGTH = MAX_X*MAX_Y;
-	bool[] board = new bool[LENGTH];
+	//bool[] board = new bool[LENGTH];
 	
 	Random rnd = new Random();
 	
-	var arr = new int[LENGTH];         // stores mine count values
+	var arr = new byte[LENGTH];         // stores mine count values
 	var count = 0;
 	var row = 0;
+	var begIndex = 0;
+	var endIndex = 0;
 	
 	for (var i = 0; i < LENGTH; i++) {
 	
 	   // detect of row
 	   var isBeginning = (count == 0);
        var isEndOfLine = (count == MAX_ARR_X);
+	   
+		if (isBeginning) {
+		  begIndex = i;
+		  endIndex = i + MAX_ARR_X;
+		}
 		
 	   // randomly generate value
 	   var val = (rnd.Next(1,50)%5 == 1);
-	   board[i] = val;
+	   //board[i] = val;
 		
 	   // print value
        var c = val ? "X" : "O";
@@ -41,9 +78,9 @@ public void Main()
 	   
 	   // edge detection valdiation
 	   
-	   var isLeftEdge = (i == row*MAX_X);
+	   var isLeftEdge = (i == begIndex);
 	   var isTopEdge = (i <= MAX_ARR_X);
-	   var isRightEdge = (i == row*MAX_X + MAX_ARR_X);
+	   var isRightEdge = (i == endIndex);
 	   var isBottomEdge = (i >= LENGTH-1 - MAX_X);
 	   
 		
@@ -74,7 +111,7 @@ public void Main()
 	count = 0;
 	for (var i = 0; i < LENGTH; i++) {
 		var isEndOfLine = (count == MAX_ARR_X);
-		Console.Write(arr[i]);
+		Console.Write(arr[i].ToStringLookup());
 		if (i < LENGTH) {
            Console.Write(" ");
 		}
