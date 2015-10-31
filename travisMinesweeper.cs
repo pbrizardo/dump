@@ -34,95 +34,73 @@ public class Program
 {
 public void Main()
 {
-	var MAX_X = 100; 
-	var MAX_ARR_X = MAX_X - 1;
-	var MAX_Y = 100; 
-	var LENGTH = MAX_X*MAX_Y;
-	bool[] board = new bool[LENGTH];
+	var ROWS = 100;            // amount of horizontal tiles
+	var COLS = 100;            // amount of vertical tiles
+	var LAST_ROW_INDEX = ROWS - 1;  // last element index in column
+	var LAST_COL_INDEX = COLS - 1;  // last element index in row
+	
+	var board = new bool[ROWS,COLS]; // stores mines using True and False
+	var arr = new byte[ROWS,COLS];   // stores mine count values
 	
 	Random rnd = new Random();
 	
-	var arr = new byte[LENGTH];         // stores mine count values
-	var count = 0;
-	var row = 0;
-	var begIndex = 0;
-	var endIndex = 0;
-	
-	for (var i = 0; i < LENGTH; i++) {
-	
-	   // detect of row
-	   var isBeginning = (count == 0);
-       var isEndOfLine = (count == MAX_ARR_X);
-	   
-		if (isBeginning) {
-		  begIndex = i;
-		  endIndex = i + MAX_ARR_X;
+	for (var a = 0; a < ROWS; a++) {
+		for (var b = 0; b < COLS; b++) {
+			
+			// place bomb in element
+			var val = (rnd.Next(1,50)%5 == 1);
+			board[a,b] = val;
+			
+			// print out 'X' for bomb and 'O' for empty space
+			var c = val ? 'X' : 'O';
+			Console.Write(c);
+			
+			// pad the output
+			if (b < LAST_COL_INDEX) {
+				Console.Write(' ');
+			}
+			
+			// edge detect
+			var isLeftEdge = (b == 0);
+	  		var isTopEdge = (a == 0);
+	   	    var isRightEdge = (b == LAST_ROW_INDEX);
+	   	    var isBottomEdge = (a == LAST_COL_INDEX);
+			
+			// increment bomb counts
+			if (val) {				   			
+				
+		      // check left
+		      if (!isLeftEdge) { arr[a,b-1]++; }
+			  if (!isTopEdge) { arr[a-1,b]++; }
+			  if (!isRightEdge) { arr[a,b+1]++; }
+		      if (!isBottomEdge) { arr[a+1,b]++; }
+				   
+			  // check diagnals
+			  if (!isLeftEdge && !isTopEdge) { arr[a-1,b-1]++;}
+		      if (!isLeftEdge && !isBottomEdge) { arr[a+1,b-1]++;}
+			  if (!isRightEdge && !isTopEdge) { arr[a-1,b+1]++;}
+			  if (!isRightEdge && !isBottomEdge) { arr[a+1,b+1]++;}
+			}
+			
 		}
-		
-	   // randomly generate value
-	   var val = (rnd.Next(1,50)%5 == 1);
-	   board[i] = val;
-		
-	   // print value
-       var c = val ? "X" : "O";
-	   Console.Write(c);
-		
-	   // print out padding
-	   if (i < LENGTH) {
-	      Console.Write(" ");
-	   }
+		Console.WriteLine();
+	}
+	
+	Console.WriteLine();
 
-	   // print next line if end of row, and reset count
-	   if (isEndOfLine) Console.Write('\n');
-	   count = (isEndOfLine) ? 0 : count + 1;
-	   
-	   // edge detection valdiation
-	   
-	   var isLeftEdge = (i == begIndex);
-	   var isTopEdge = (i <= MAX_ARR_X);
-	   var isRightEdge = (i == endIndex);
-	   var isBottomEdge = (i >= LENGTH-1 - MAX_X);
-	   
-		
-	   if (val) {
-		   // increm bomb pos
-		   arr[i]++;
-		   
-	       // check left
-		   if (!isLeftEdge) { arr[i-1]++; }
-		   if (!isTopEdge) { arr[i-MAX_X]++; }
-		   if (!isRightEdge) { arr[i+1]++; }
-		   if (!isBottomEdge) { arr[i+MAX_X]++; }
-		   
-		   // check diagnals
-		   if (!isLeftEdge && !isTopEdge) { arr[(i-MAX_X-1)]++;}
-		   if (!isLeftEdge && !isBottomEdge) { arr[(i+MAX_X-1)]++;}
-		   if (!isRightEdge && !isTopEdge) { arr[(i-MAX_X+1)]++;}
-		   if (!isRightEdge && !isBottomEdge) { arr[(i+MAX_X+1)]++;}
-	   }
-		
-	   // increm row count
-	   if (isEndOfLine) { row++; }
-	}	
-	
-	Console.WriteLine("");
-	
-	// print mine count
-	count = 0;
-	for (var i = 0; i < LENGTH; i++) {
-		var isEndOfLine = (count == MAX_ARR_X);
-		if (board[i]) {
-			Console.Write("0");
-		} else {
-			Console.Write(arr[i].ToStringLookup());
+	for (var a = 0; a < ROWS; a++) {
+		for (var b = 0; b < COLS; b++) {
+			if (board[a,b]) {
+				Console.Write('B');
+			} else {
+				Console.Write(arr[a,b].ToStringLookup());
+			}
+			
+			if (b < LAST_COL_INDEX) {
+				Console.Write(' ');
+			}
 		}
-									
-		if (i < LENGTH) {
-           Console.Write(" ");
-		}
-		
-		if (isEndOfLine) Console.Write('\n');
-		count = (isEndOfLine) ? 0 : count + 1;
+		Console.WriteLine();
 	}
 }
 }
