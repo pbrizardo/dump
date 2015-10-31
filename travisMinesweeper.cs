@@ -38,7 +38,7 @@ public void Main()
 	var MAX_ARR_X = MAX_X - 1;
 	var MAX_Y = 100; 
 	var LENGTH = MAX_X*MAX_Y;
-	//bool[] board = new bool[LENGTH];
+	bool[] board = new bool[LENGTH];
 	
 	Random rnd = new Random();
 	
@@ -61,7 +61,7 @@ public void Main()
 		
 	   // randomly generate value
 	   var val = (rnd.Next(1,50)%5 == 1);
-	   //board[i] = val;
+	   board[i] = val;
 		
 	   // print value
        var c = val ? "X" : "O";
@@ -111,7 +111,12 @@ public void Main()
 	count = 0;
 	for (var i = 0; i < LENGTH; i++) {
 		var isEndOfLine = (count == MAX_ARR_X);
-		Console.Write(arr[i].ToStringLookup());
+		if (board[i]) {
+			Console.Write("0");
+		} else {
+			Console.Write(arr[i].ToStringLookup());
+		}
+									
 		if (i < LENGTH) {
            Console.Write(" ");
 		}
