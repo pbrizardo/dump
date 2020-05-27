@@ -1,0 +1,39 @@
+{
+	"React Function Component": {
+		"scope": "typescriptreact",
+		"prefix": "reactFn",
+		"body": [
+      "import React from 'react';",
+      "",
+      "interface $1Props {",
+      "}",
+      "",
+      "const $1 = (props: $1Props) => {",
+      "\treturn (",
+      "\t);",
+      "};",
+      "",
+      "export default $1;",
+      ""
+		],
+		"description": "Quick Snippet"
+  },
+
+  "Mobx action snippet": {
+     "scope": "typescript",
+     "prefix": "mobxAction",
+     "body": [
+      "@action set$1 = ($2: $3) => { this.$2 = $2 }"
+     ],
+     "description": "Quicky snippppet"
+  },
+
+  "Export default snippet": {
+   "scope": "typescriptreact",
+   "prefix": "exportDefault",
+   "body": [
+    "export { default } from './$1';"
+   ],
+   "description": "Quicky snippppet"
+  }
+}
