@@ -1,0 +1,30 @@
+{
+  "workbench.iconTheme": "Monokai Pro (Filter Octagon) Icons",
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "vim.useCtrlKeys": true,
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "workbench.editor.enablePreview": false,
+  "explorer.autoReveal": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "remote.SSH.remotePlatform": {
+    "devs-MacBook-Pro.local": "macOS"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  "emmet.showAbbreviationSuggestions": false,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "workbench.colorTheme": "One Dark Pro",
+  "terminal.integrated.scrollback": 10000,
+  "github.gitAuthentication": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "workbench.editor.untitled.hint": "hidden"
+}
