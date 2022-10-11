@@ -1,39 +1,50 @@
+// 20200527100128
+// https://raw.githubusercontent.com/pbrizardo/dump/master/vscodeReactSnippets
+
 {
-	"React Function Component": {
-		"scope": "typescriptreact",
-		"prefix": "reactFn",
-		"body": [
+  "React Function Component": {
+    "scope": "typescriptreact",
+    "prefix": "reactFn",
+    "body": [
       "import React from 'react';",
+      "import styles from './styles.module.scss';",
       "",
-      "interface $1Props {",
+      "interface Props {",
       "}",
       "",
-      "const $1 = (props: $1Props) => {",
+      "const $1 = (props: Props) => {",
       "\treturn (",
+      "\t\t<></>",
       "\t);",
       "};",
       "",
       "export default $1;",
       ""
-		],
-		"description": "Quick Snippet"
+    ],
+    "description": "Quick Snippet"
   },
-
   "Mobx action snippet": {
-     "scope": "typescript",
-     "prefix": "mobxAction",
-     "body": [
-      "@action set$1 = ($2: $3) => { this.$2 = $2 }"
-     ],
-     "description": "Quicky snippppet"
+    "scope": "typescript",
+    "prefix": "mobxAction",
+    "body": ["@action set$1 = ($2: $3) => { this.$2 = $2 }"],
+    "description": "Quicky snippppet"
   },
-
   "Export default snippet": {
-   "scope": "typescriptreact",
-   "prefix": "exportDefault",
-   "body": [
-    "export { default } from './$1';"
-   ],
-   "description": "Quicky snippppet"
+    "scope": "typescriptreact",
+    "prefix": "exportDefault",
+    "body": ["export { default } from './$1';"],
+    "description": "Quicky snippppet"
+  },
+  "ESlint disable line": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "eslintDisableNextLine",
+    "body": ["// eslint-disable-next-line"],
+    "description": "Do something"
+  },
+  "styles import": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "stylesImport",
+    "body": ["import styles from './styles.module.scss';"],
+    "description": ""
   }
 }
